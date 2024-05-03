@@ -17,6 +17,12 @@
 		4892B3EF2BE52A9000301B03 /* StackOverflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B3EE2BE52A9000301B03 /* StackOverflowTests.swift */; };
 		4892B3F92BE52A9000301B03 /* StackOverflowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B3F82BE52A9000301B03 /* StackOverflowUITests.swift */; };
 		4892B3FB2BE52A9000301B03 /* StackOverflowUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B3FA2BE52A9000301B03 /* StackOverflowUITestsLaunchTests.swift */; };
+		4892B40E2BE52CD800301B03 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B40D2BE52CD800301B03 /* User.swift */; };
+		4892B4102BE52F2300301B03 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B40F2BE52F2300301B03 /* NetworkManager.swift */; };
+		4892B4122BE5495900301B03 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4112BE5495900301B03 /* NetworkError.swift */; };
+		4892B4142BE5499600301B03 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4132BE5499600301B03 /* NetworkSession.swift */; };
+		4892B4162BE549B000301B03 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4152BE549B000301B03 /* Endpoint.swift */; };
+		4892B4182BE549CB00301B03 /* StackOverflowAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4172BE549CB00301B03 /* StackOverflowAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,12 @@
 		4892B3F42BE52A9000301B03 /* StackOverflowUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StackOverflowUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4892B3F82BE52A9000301B03 /* StackOverflowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOverflowUITests.swift; sourceTree = "<group>"; };
 		4892B3FA2BE52A9000301B03 /* StackOverflowUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOverflowUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4892B40D2BE52CD800301B03 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4892B40F2BE52F2300301B03 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4892B4112BE5495900301B03 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		4892B4132BE5499600301B03 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
+		4892B4152BE549B000301B03 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		4892B4172BE549CB00301B03 /* StackOverflowAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackOverflowAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +113,12 @@
 		4892B3D32BE52A8C00301B03 /* StackOverflow */ = {
 			isa = PBXGroup;
 			children = (
+				4892B40C2BE52C4600301B03 /* Utility */,
+				4892B40B2BE52C3900301B03 /* Controller */,
+				4892B40A2BE52C2800301B03 /* Network */,
+				4892B4092BE52C1B00301B03 /* View */,
+				4892B4082BE52C1000301B03 /* ViewModel */,
+				4892B4072BE52BF200301B03 /* Model */,
 				4892B3D42BE52A8C00301B03 /* AppDelegate.swift */,
 				4892B3D62BE52A8C00301B03 /* SceneDelegate.swift */,
 				4892B3D82BE52A8C00301B03 /* ViewController.swift */,
@@ -128,6 +146,54 @@
 				4892B3FA2BE52A9000301B03 /* StackOverflowUITestsLaunchTests.swift */,
 			);
 			path = StackOverflowUITests;
+			sourceTree = "<group>";
+		};
+		4892B4072BE52BF200301B03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4892B40D2BE52CD800301B03 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4892B4082BE52C1000301B03 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4892B4092BE52C1B00301B03 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4892B40A2BE52C2800301B03 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4892B40F2BE52F2300301B03 /* NetworkManager.swift */,
+				4892B4112BE5495900301B03 /* NetworkError.swift */,
+				4892B4132BE5499600301B03 /* NetworkSession.swift */,
+				4892B4152BE549B000301B03 /* Endpoint.swift */,
+				4892B4172BE549CB00301B03 /* StackOverflowAPI.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		4892B40B2BE52C3900301B03 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4892B40C2BE52C4600301B03 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,9 +327,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4892B4102BE52F2300301B03 /* NetworkManager.swift in Sources */,
+				4892B4182BE549CB00301B03 /* StackOverflowAPI.swift in Sources */,
+				4892B4162BE549B000301B03 /* Endpoint.swift in Sources */,
+				4892B4122BE5495900301B03 /* NetworkError.swift in Sources */,
 				4892B3DF2BE52A8C00301B03 /* StackOverflow.xcdatamodeld in Sources */,
 				4892B3D92BE52A8C00301B03 /* ViewController.swift in Sources */,
 				4892B3D52BE52A8C00301B03 /* AppDelegate.swift in Sources */,
+				4892B4142BE5499600301B03 /* NetworkSession.swift in Sources */,
+				4892B40E2BE52CD800301B03 /* User.swift in Sources */,
 				4892B3D72BE52A8C00301B03 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
