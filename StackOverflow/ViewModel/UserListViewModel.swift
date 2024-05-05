@@ -82,7 +82,7 @@ class UserListViewModel {
                 newUserEntity.profileImage = user.profileImage
                 newUserEntity.reputation = Int32(user.reputation)
             }
-            AppDelegate.shared.saveContext() // Ensuring you're calling save on the AppDelegate
+            AppDelegate.shared.saveContext()
             users[userIndex].isFollowed.toggle()
             onUsersUpdated?()
         } catch {

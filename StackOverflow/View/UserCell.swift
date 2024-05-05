@@ -15,6 +15,7 @@ class UserCell: UITableViewCell {
     private let reputationLabel = UILabel()
     private let followButton = UIButton(type: .system)
     private let profileImageView = UIImageView()
+    private let followIndicator = UIImageView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,15 +30,20 @@ class UserCell: UITableViewCell {
     private func setupViews() {
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = 25  // Make image circular with 50x50 size
+        profileImageView.layer.cornerRadius = 25
         
         contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(reputationLabel)
         contentView.addSubview(followButton)
+        contentView.addSubview(followIndicator)
         
         followButton.setTitle("Follow", for: .normal)
         followButton.addTarget(self, action: #selector(followButtonTapped), for: .touchUpInside)
+        
+        followIndicator.contentMode = .scaleAspectFit
+        followIndicator.image = UIImage(systemName: "star.fill")
+        followIndicator.isHidden = true
     }
 
     private func setupConstraints() {
@@ -45,6 +51,7 @@ class UserCell: UITableViewCell {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         reputationLabel.translatesAutoresizingMaskIntoConstraints = false
         followButton.translatesAutoresizingMaskIntoConstraints = false
+        followIndicator.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -62,7 +69,12 @@ class UserCell: UITableViewCell {
 
             followButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             followButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            followButton.topAnchor.constraint(equalTo: reputationLabel.bottomAnchor, constant: 20)
+            followButton.topAnchor.constraint(equalTo: reputationLabel.bottomAnchor, constant: 20),
+            
+            followIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            followIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            followIndicator.widthAnchor.constraint(equalToConstant: 20),
+            followIndicator.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
 
@@ -81,6 +93,8 @@ class UserCell: UITableViewCell {
             followButton.setTitle("Follow", for: .normal)
             followButton.setTitleColor(.systemBlue, for: .normal)
         }
+        
+        followIndicator.isHidden = !user.isFollowed
         
         // Reset image to a placeholder initially
         profileImageView.image = UIImage(named: "placeholder")
