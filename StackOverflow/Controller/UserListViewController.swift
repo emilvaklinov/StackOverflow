@@ -22,6 +22,7 @@ class UserListViewController: UIViewController {
         super.viewDidLoad()
         setupBindings()
         viewModel.fetchUsers()
+        setupTableViewHeader()
     }
 
     private func setupBindings() {
@@ -31,6 +32,30 @@ class UserListViewController: UIViewController {
             print("Users updated, reloading data")
             self?.userListView.tableView.reloadData()
         }
+    }
+    
+    private func setupTableViewHeader() {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.systemBackground
+
+        let headerLabel = UILabel()
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.text = "StackOverflow Users"
+        headerLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        headerLabel.textAlignment = .center
+
+        headerView.addSubview(headerLabel)
+
+        NSLayoutConstraint.activate([
+            headerLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 20),
+            headerLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -20),
+            headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
+        ])
+
+        userListView.tableView.tableHeaderView = headerView
+
+        // Set the frame of the header view after adding constraints to determine its size
+        headerView.frame = CGRect(x: 0, y: 0, width: userListView.tableView.bounds.width, height: 100)
     }
 }
 
