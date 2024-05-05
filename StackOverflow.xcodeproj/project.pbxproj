@@ -29,6 +29,10 @@
 		4892B4262BE7F45D00301B03 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4252BE7F45D00301B03 /* ErrorView.swift */; };
 		4892B4302BE81CEB00301B03 /* MockURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B42F2BE81CEB00301B03 /* MockURLSessionDataTask.swift */; };
 		4892B4322BE81D3B00301B03 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4312BE81D3B00301B03 /* NetworkManagerTests.swift */; };
+		4892B4342BE8254B00301B03 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4332BE8254B00301B03 /* MockNetworkManager.swift */; };
+		4892B4362BE8264300301B03 /* UserListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4352BE8264300301B03 /* UserListViewModelTests.swift */; };
+		4892B4392BE82DEF00301B03 /* MockUserData.json in Resources */ = {isa = PBXBuildFile; fileRef = 4892B4372BE82DEE00301B03 /* MockUserData.json */; };
+		4892B43B2BE82F5200301B03 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B43A2BE82F5200301B03 /* NetworkTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +79,10 @@
 		4892B4252BE7F45D00301B03 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		4892B42F2BE81CEB00301B03 /* MockURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSessionDataTask.swift; sourceTree = "<group>"; };
 		4892B4312BE81D3B00301B03 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		4892B4332BE8254B00301B03 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
+		4892B4352BE8264300301B03 /* UserListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModelTests.swift; sourceTree = "<group>"; };
+		4892B4382BE82DEE00301B03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/MockUserData.json; sourceTree = "<group>"; };
+		4892B43A2BE82F5200301B03 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +154,10 @@
 				4892B3EE2BE52A9000301B03 /* StackOverflowTests.swift */,
 				4892B42F2BE81CEB00301B03 /* MockURLSessionDataTask.swift */,
 				4892B4312BE81D3B00301B03 /* NetworkManagerTests.swift */,
+				4892B4332BE8254B00301B03 /* MockNetworkManager.swift */,
+				4892B4352BE8264300301B03 /* UserListViewModelTests.swift */,
+				4892B4372BE82DEE00301B03 /* MockUserData.json */,
+				4892B43A2BE82F5200301B03 /* NetworkTests.swift */,
 			);
 			path = StackOverflowTests;
 			sourceTree = "<group>";
@@ -344,6 +356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4892B4392BE82DEF00301B03 /* MockUserData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,8 +395,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4892B43B2BE82F5200301B03 /* NetworkTests.swift in Sources */,
+				4892B4362BE8264300301B03 /* UserListViewModelTests.swift in Sources */,
 				4892B4322BE81D3B00301B03 /* NetworkManagerTests.swift in Sources */,
 				4892B3EF2BE52A9000301B03 /* StackOverflowTests.swift in Sources */,
+				4892B4342BE8254B00301B03 /* MockNetworkManager.swift in Sources */,
 				4892B4302BE81CEB00301B03 /* MockURLSessionDataTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +443,14 @@
 				4892B3E32BE52A8F00301B03 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		4892B4372BE82DEE00301B03 /* MockUserData.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4892B4382BE82DEE00301B03 /* en */,
+			);
+			name = MockUserData.json;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

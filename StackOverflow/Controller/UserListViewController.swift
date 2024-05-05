@@ -15,7 +15,11 @@ class UserListViewController: UIViewController {
         return view as? UserListView
     }
     
-    var viewModel = UserListViewModel()
+    var viewModel: UserListViewModel!
+
+    func configure(with viewModel: UserListViewModel) {
+        self.viewModel = viewModel
+    }
 
     override func loadView() {
         view = UserListView()

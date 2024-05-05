@@ -6,30 +6,62 @@
 //
 
 import XCTest
+@testable import StackOverflow
+import CoreData
 
 final class UserListViewModelTests: XCTestCase {
+    var viewModel: UserListViewModel!
+    var mockNetworkManager: MockNetworkManager!
+    var mockContext: NSManagedObjectContext!
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
+        mockNetworkManager = MockNetworkManager()
+        let container = NSPersistentContainer.inMemoryContainer()
+        mockContext = container.viewContext
+        viewModel = UserListViewModel(networkManager: mockNetworkManager, context: mockContext)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        viewModel = nil
+        mockNetworkManager = nil
+        mockContext = nil
+        super.tearDown()
+    }
+    
+    func testFetchUsersUsingMockData() {
+        guard let mockData = readDataFromFile("MockUserData", fileType: "json") else {
+            XCTFail("No data available for mocking.")
+            return
+        }
+        
+        mockNetworkManager.mockData = mockData
+        let expectation = self.expectation(description: "Users fetched using mock data")
+        
+        viewModel.onUsersUpdated = {
+            XCTAssertEqual(self.viewModel.users.count, 20, "Should have correctly parsed one user.")
+            expectation.fulfill()
+        }
+        
+        viewModel.onNetworkError = { errorMessage in
+            XCTFail("Network request should not fail with mock data: \(errorMessage)")
+            expectation.fulfill()
+        }
+        
+        viewModel.fetchUsers()
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    private func readDataFromFile(_ fileName: String, fileType: String) -> Data? {
+        guard let path = Bundle(for: type(of: self)).path(forResource: fileName, ofType: fileType) else {
+            XCTFail("File not found: \(fileName).\(fileType)")
+            return nil
+        }
+        do {
+            return try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        } catch {
+            XCTFail("Failed to load file from test bundle: \(error)")
+            return nil
         }
     }
-
 }

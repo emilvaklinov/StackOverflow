@@ -8,28 +8,22 @@
 import XCTest
 
 final class NetworkTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    func testLoadMockData() {
+        let data = readDataFromFile("MockUserData", fileType: "json")
+        XCTAssertNotNil(data, "Should have data loaded from the mock file.")
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    private func readDataFromFile(_ fileName: String, fileType: String) -> Data? {
+        guard let path = Bundle(for: type(of: self)).path(forResource: fileName, ofType: fileType) else {
+            return nil
+        }
+        
+        do {
+            return try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        } catch {
+            XCTFail("Failed to load file: \(error)")
+            return nil
         }
     }
-
 }

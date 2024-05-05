@@ -13,6 +13,14 @@ class UserListViewModel {
     var onUsersUpdated: (() -> Void)?
     var onNetworkError: ((String) -> Void)?
     
+    private let networkManager: NetworkManager
+    private let context: NSManagedObjectContext
+    
+    init(networkManager: NetworkManager, context: NSManagedObjectContext) {
+        self.networkManager = networkManager
+        self.context = context
+    }
+    
     func fetchUsers() {
         NetworkManager.shared.fetchData(from: StackOverflowAPI.users) { [weak self] result in
             DispatchQueue.main.async {
