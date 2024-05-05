@@ -17,17 +17,15 @@ class NetworkManager {
     }
 
     func fetchData(from endpoint: Endpoint, completion: @escaping (Result<Data, Error>) -> Void) {
+        
         guard let url = endpoint.url else {
             completion(.failure(NSError(domain: "URLCreationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
-
         print("Request URL: \(url.absoluteString)")
-        // If you use a URLRequest and have headers or a body, log those as well:
+        
         var request = URLRequest(url: url)
-        request.httpMethod = "GET" // Change according to your method
-        // Log headers and body if applicable
-        print("Headers: \(request.allHTTPHeaderFields ?? [:])")
+        request.httpMethod = "GET"
         if let body = request.httpBody {
             print("Body: \(String(data: body, encoding: .utf8) ?? "Invalid body data")")
         }
@@ -42,7 +40,6 @@ class NetworkManager {
                 completion(.failure(NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Non-HTTP response received"])))
                 return
             }
-
             print("Response status code: \(httpResponse.statusCode)")
             if !(200...299).contains(httpResponse.statusCode) {
                 completion(.failure(NSError(domain: "InvalidHTTPResponse", code: -2, userInfo: [NSLocalizedDescriptionKey: "HTTP Error: Status code \(httpResponse.statusCode)"])))
@@ -50,7 +47,7 @@ class NetworkManager {
             }
 
             guard let data = data else {
-                completion(.failure(NSError(domain: "NoData", code: -3, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                completion(.failure(NetworkError.noData))
                 return
             }
 

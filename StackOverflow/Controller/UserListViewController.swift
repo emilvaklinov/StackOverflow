@@ -8,29 +8,115 @@
 import UIKit
 
 class UserListViewController: UIViewController {
+    private var errorView: ErrorView?
+    
     var userListView: UserListView! {
         return view as? UserListView
     }
+    
     var viewModel = UserListViewModel()
 
     override func loadView() {
         view = UserListView()
-        print("View loaded as UserListView")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupErrorView()
         setupBindings()
         viewModel.fetchUsers()
         setupTableViewHeader()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        errorView?.frame = userListView.tableView.bounds
+    }
+    
+    let errorLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .red
+        label.numberOfLines = 0
+        label.isHidden = true
+        return label
+    }()
+    
+    private func setupErrorLabel() {
+        view.addSubview(errorLabel)
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
     }
 
     private func setupBindings() {
         userListView.tableView.delegate = self
         userListView.tableView.dataSource = self
+
         viewModel.onUsersUpdated = { [weak self] in
-            print("Users updated, reloading data")
-            self?.userListView.tableView.reloadData()
+            guard let self = self else { return }
+            
+            self.hideError()
+
+            if self.viewModel.users.isEmpty {
+                // If data is fetched but the list is empty
+                self.showError(message: "No data available.")
+            } else {
+                // Data fetched successfully and is not empty, reload the data and ensure the error view is hidden
+                print("Users updated, reloading data")
+                self.userListView.tableView.reloadData()
+            }
+        }
+
+        viewModel.onNetworkError = { [weak self] message in
+            // Show error message when a network error occurs
+            self?.showError(message: message)
+        }
+    }
+
+    
+    private func setupErrorView() {
+        let errorView = ErrorView(frame: CGRect.zero)
+        errorView.isHidden = true
+        view.addSubview(errorView)
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            errorView.topAnchor.constraint(equalTo: view.topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        errorView.retryButtonAction = { [weak self] in
+            self?.errorView?.isHidden = true
+            self?.retryNetworkRequest()
+        }
+
+        self.errorView = errorView
+    }
+
+    private func retryNetworkRequest() {
+        viewModel.fetchUsers()
+    }
+
+    func showError(message: String) {
+        DispatchQueue.main.async {
+            self.errorLabel.text = message
+            self.errorLabel.isHidden = false
+            self.errorView?.messageLabel.text = message
+            self.errorView?.isHidden = false
+        }
+    }
+
+    func hideError() {
+        DispatchQueue.main.async {
+            self.errorLabel.isHidden = true
+            self.errorView?.isHidden = true
         }
     }
     
@@ -54,7 +140,6 @@ class UserListViewController: UIViewController {
 
         userListView.tableView.tableHeaderView = headerView
 
-        // Set the frame of the header view after adding constraints to determine its size
         headerView.frame = CGRect(x: 0, y: 0, width: userListView.tableView.bounds.width, height: 100)
     }
 }
@@ -66,7 +151,6 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("TableView numberOfRowsInSection: \(viewModel.users.count)")
         return viewModel.users.count
     }
 

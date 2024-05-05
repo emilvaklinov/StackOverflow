@@ -8,8 +8,12 @@
 import Foundation
 
 enum NetworkError: Error {
+    case noInternetConnection
+    case noData
     case urlError
     case decodingError
     case serverError(statusCode: Int)
+    case invalidHTTPResponse
+    case HTTPError
     case unknownError
 }

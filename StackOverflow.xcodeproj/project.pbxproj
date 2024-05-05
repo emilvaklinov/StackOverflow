@@ -26,6 +26,7 @@
 		4892B41C2BE54AFE00301B03 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B41B2BE54AFE00301B03 /* UserListViewController.swift */; };
 		4892B41E2BE54B3400301B03 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B41D2BE54B3400301B03 /* UserListView.swift */; };
 		4892B4202BE54B5500301B03 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B41F2BE54B5500301B03 /* UserCell.swift */; };
+		4892B4262BE7F45D00301B03 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4252BE7F45D00301B03 /* ErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		4892B41B2BE54AFE00301B03 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		4892B41D2BE54B3400301B03 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		4892B41F2BE54B5500301B03 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		4892B4252BE7F45D00301B03 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			children = (
 				4892B41D2BE54B3400301B03 /* UserListView.swift */,
 				4892B41F2BE54B5500301B03 /* UserCell.swift */,
+				4892B4252BE7F45D00301B03 /* ErrorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				4892B3D52BE52A8C00301B03 /* AppDelegate.swift in Sources */,
 				4892B4142BE5499600301B03 /* NetworkSession.swift in Sources */,
 				4892B40E2BE52CD800301B03 /* User.swift in Sources */,
+				4892B4262BE7F45D00301B03 /* ErrorView.swift in Sources */,
 				4892B3D72BE52A8C00301B03 /* SceneDelegate.swift in Sources */,
 				4892B41E2BE54B3400301B03 /* UserListView.swift in Sources */,
 			);

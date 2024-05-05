@@ -11,6 +11,7 @@ import CoreData
 class UserListViewModel {
     var users: [User] = []
     var onUsersUpdated: (() -> Void)?
+    var onNetworkError: ((String) -> Void)?
     
     func fetchUsers() {
         NetworkManager.shared.fetchData(from: StackOverflowAPI.users) { [weak self] result in
@@ -27,7 +28,7 @@ class UserListViewModel {
                         print("Decoding error: \(error)")
                     }
                 case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                    self?.onNetworkError?("Failed to fetch users: \(error.localizedDescription)")
                 }
             }
         }
