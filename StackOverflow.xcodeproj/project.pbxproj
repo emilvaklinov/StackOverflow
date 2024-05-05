@@ -121,19 +121,17 @@
 		4892B3D32BE52A8C00301B03 /* StackOverflow */ = {
 			isa = PBXGroup;
 			children = (
-				4892B40C2BE52C4600301B03 /* Utility */,
+				4892B4272BE808EB00301B03 /* AppDelegates */,
+				4892B4282BE8092200301B03 /* Persistance */,
 				4892B40B2BE52C3900301B03 /* Controller */,
 				4892B40A2BE52C2800301B03 /* Network */,
+				4892B4072BE52BF200301B03 /* Model */,
 				4892B4092BE52C1B00301B03 /* View */,
 				4892B4082BE52C1000301B03 /* ViewModel */,
-				4892B4072BE52BF200301B03 /* Model */,
-				4892B3D42BE52A8C00301B03 /* AppDelegate.swift */,
-				4892B3D62BE52A8C00301B03 /* SceneDelegate.swift */,
+				4892B40C2BE52C4600301B03 /* Utility */,
 				4892B3DA2BE52A8C00301B03 /* Main.storyboard */,
-				4892B3E02BE52A8F00301B03 /* Assets.xcassets */,
 				4892B3E22BE52A8F00301B03 /* LaunchScreen.storyboard */,
 				4892B3E52BE52A8F00301B03 /* Info.plist */,
-				4892B3DD2BE52A8C00301B03 /* StackOverflow.xcdatamodeld */,
 			);
 			path = StackOverflow;
 			sourceTree = "<group>";
@@ -204,8 +202,26 @@
 		4892B40C2BE52C4600301B03 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				4892B3E02BE52A8F00301B03 /* Assets.xcassets */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		4892B4272BE808EB00301B03 /* AppDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				4892B3D42BE52A8C00301B03 /* AppDelegate.swift */,
+				4892B3D62BE52A8C00301B03 /* SceneDelegate.swift */,
+			);
+			path = AppDelegates;
+			sourceTree = "<group>";
+		};
+		4892B4282BE8092200301B03 /* Persistance */ = {
+			isa = PBXGroup;
+			children = (
+				4892B3DD2BE52A8C00301B03 /* StackOverflow.xcdatamodeld */,
+			);
+			path = Persistance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
