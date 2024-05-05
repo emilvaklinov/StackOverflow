@@ -10,48 +10,39 @@ import Foundation
 class NetworkManager {
     static let shared = NetworkManager()
 
-    private let session: URLSession
+    private let session: URLSessionProtocol
 
-    init(session: URLSession = .shared) {
+    init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
     }
 
     func fetchData(from endpoint: Endpoint, completion: @escaping (Result<Data, Error>) -> Void) {
-        
         guard let url = endpoint.url else {
             completion(.failure(NSError(domain: "URLCreationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
-        print("Request URL: \(url.absoluteString)")
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        if let body = request.httpBody {
-            print("Body: \(String(data: body, encoding: .utf8) ?? "Invalid body data")")
-        }
 
+        let request = URLRequest(url: url)
         let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
 
-            guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Non-HTTP response received"])))
-                return
-            }
-            print("Response status code: \(httpResponse.statusCode)")
-            if !(200...299).contains(httpResponse.statusCode) {
-                completion(.failure(NSError(domain: "InvalidHTTPResponse", code: -2, userInfo: [NSLocalizedDescriptionKey: "HTTP Error: Status code \(httpResponse.statusCode)"])))
-                return
-            }
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    completion(.failure(NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid HTTP response"])))
+                    return
+                }
 
-            guard let data = data else {
-                completion(.failure(NetworkError.noData))
-                return
-            }
+                guard let data = data else {
+                    completion(.failure(NSError(domain: "DataError", code: -2, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    return
+                }
 
-            completion(.success(data))
+                completion(.success(data))
+            }
         }
         task.resume()
     }

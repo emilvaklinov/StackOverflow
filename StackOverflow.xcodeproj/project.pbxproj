@@ -27,6 +27,8 @@
 		4892B41E2BE54B3400301B03 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B41D2BE54B3400301B03 /* UserListView.swift */; };
 		4892B4202BE54B5500301B03 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B41F2BE54B5500301B03 /* UserCell.swift */; };
 		4892B4262BE7F45D00301B03 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4252BE7F45D00301B03 /* ErrorView.swift */; };
+		4892B4302BE81CEB00301B03 /* MockURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B42F2BE81CEB00301B03 /* MockURLSessionDataTask.swift */; };
+		4892B4322BE81D3B00301B03 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4892B4312BE81D3B00301B03 /* NetworkManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		4892B41D2BE54B3400301B03 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		4892B41F2BE54B5500301B03 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		4892B4252BE7F45D00301B03 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		4892B42F2BE81CEB00301B03 /* MockURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSessionDataTask.swift; sourceTree = "<group>"; };
+		4892B4312BE81D3B00301B03 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				4892B3EE2BE52A9000301B03 /* StackOverflowTests.swift */,
+				4892B42F2BE81CEB00301B03 /* MockURLSessionDataTask.swift */,
+				4892B4312BE81D3B00301B03 /* NetworkManagerTests.swift */,
 			);
 			path = StackOverflowTests;
 			sourceTree = "<group>";
@@ -376,7 +382,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4892B4322BE81D3B00301B03 /* NetworkManagerTests.swift in Sources */,
 				4892B3EF2BE52A9000301B03 /* StackOverflowTests.swift in Sources */,
+				4892B4302BE81CEB00301B03 /* MockURLSessionDataTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

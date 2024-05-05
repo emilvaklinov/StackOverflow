@@ -7,13 +7,18 @@
 
 import Foundation
 
-protocol NetworkSession {
-    func loadData(from url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
+protocol URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }
 
-extension URLSession: NetworkSession {
-    func loadData(from url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let task = dataTask(with: url, completionHandler: completionHandler)
-        task.resume()
+protocol URLSessionDataTaskProtocol {
+    func resume()
+}
+
+extension URLSession: URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+        return (dataTask(with: request, completionHandler: completionHandler) as URLSessionDataTask) as URLSessionDataTaskProtocol
     }
 }
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol {}
