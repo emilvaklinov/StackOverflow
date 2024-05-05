@@ -33,4 +33,19 @@ class NetworkManagerTests: XCTestCase {
         }
         waitForExpectations(timeout: 1, handler: nil)
     }
+    
+    func testFetchDataFailure() {
+        let error = NSError(domain: "Test", code: 0, userInfo: nil)
+        mockSession.nextError = error
+        let expectation = self.expectation(description: "FetchDataFailure")
+        networkManager.fetchData(from: StackOverflowAPI.users) { result in
+            if case .failure(let receivedError) = result {
+                XCTAssertEqual((receivedError as NSError).domain, error.domain)
+            } else {
+                XCTFail("Expected failure response")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 1, handler: nil)
+    }
 }
