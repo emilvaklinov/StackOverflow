@@ -18,9 +18,32 @@ enum StackOverflowAPI: Endpoint {
     var path: String {
         switch self {
         case .users:
-            return "/2.2/users?pagesize=20&order=desc&sort=reputation&site=stackoverflow"
+            return "/2.2/users"
         case .userDetail(let userID):
-            return "/2.2/users/\(userID)?site=stackoverflow"
+            return "/2.2/users/\(userID)"
         }
+    }
+
+    var url: URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.stackexchange.com"
+        components.path = path
+
+        switch self {
+        case .users:
+            components.queryItems = [
+                URLQueryItem(name: "pagesize", value: "20"),
+                URLQueryItem(name: "order", value: "desc"),
+                URLQueryItem(name: "sort", value: "reputation"),
+                URLQueryItem(name: "site", value: "stackoverflow")
+            ]
+        case .userDetail:
+            components.queryItems = [
+                URLQueryItem(name: "site", value: "stackoverflow")
+            ]
+        }
+
+        return components.url
     }
 }

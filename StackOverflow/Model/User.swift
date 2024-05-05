@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct UsersResponse: Codable {
+    let items: [User]
+}
+
 struct User: Codable {
     let badgeCounts: BadgeCounts
     let accountId: Int
