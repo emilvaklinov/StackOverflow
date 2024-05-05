@@ -42,7 +42,7 @@ class UserListViewModel {
         }
     }
     
-    private func loadFollowStatus() {
+    func loadFollowStatus() {
         let request: NSFetchRequest<UserEntity> = UserEntity.fetchRequest()
         do {
             let results = try AppDelegate.context.fetch(request)

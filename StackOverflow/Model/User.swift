@@ -56,6 +56,30 @@ struct User: Codable {
         case profileImage = "profile_image"
         case displayName = "display_name"
     }
+    
+    init(displayName: String, accountId: Int, profileImage: String?, reputation: Int, isFollowed: Bool) {
+        self.displayName = displayName
+        self.accountId = accountId
+        self.profileImage = profileImage ?? ""
+        self.reputation = reputation
+        self.isFollowed = isFollowed
+        self.badgeCounts = BadgeCounts(bronze: 0, silver: 0, gold: 0)
+        self.isEmployee = false
+        self.lastModifiedDate = 0
+        self.lastAccessDate = 0
+        self.reputationChangeYear = 0
+        self.reputationChangeQuarter = 0
+        self.reputationChangeMonth = 0
+        self.reputationChangeWeek = 0
+        self.reputationChangeDay = 0
+        self.creationDate = 0
+        self.userType = "registered"
+        self.userId = accountId
+        self.acceptRate = nil
+        self.location = nil
+        self.websiteUrl = nil
+        self.link = ""
+    }
 }
 
 struct BadgeCounts: Codable {
