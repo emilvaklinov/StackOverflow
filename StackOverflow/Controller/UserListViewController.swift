@@ -35,6 +35,11 @@ class UserListViewController: UIViewController {
 }
 
 extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("TableView numberOfRowsInSection: \(viewModel.users.count)")
         return viewModel.users.count
