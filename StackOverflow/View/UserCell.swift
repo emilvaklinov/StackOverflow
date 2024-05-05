@@ -118,18 +118,26 @@ class UserCell: UITableViewCell {
 
 extension UIImageView {
     func loadImage(from url: URL) async {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.center = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
+        activityIndicator.startAnimating()
+        self.addSubview(activityIndicator)
+        
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self.image = image
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
                 }
             }
         } catch {
             print("Failed to load image from url: \(url), error: \(error)")
-            // Optionally set a placeholder image in case of failure
             DispatchQueue.main.async {
                 self.image = UIImage(named: "placeholder")
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
             }
         }
     }

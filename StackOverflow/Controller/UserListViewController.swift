@@ -9,6 +9,7 @@ import UIKit
 
 class UserListViewController: UIViewController {
     private var errorView: ErrorView?
+    private var activityIndicator: UIActivityIndicatorView!
     
     var userListView: UserListView! {
         return view as? UserListView
@@ -22,10 +23,16 @@ class UserListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupActivityIndicator()
         setupErrorView()
         setupBindings()
-        viewModel.fetchUsers()
+        fetchData()
         setupTableViewHeader()
+    }
+    
+    func fetchData() {
+        activityIndicator.startAnimating()
+        viewModel.fetchUsers()
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,6 +59,16 @@ class UserListViewController: UIViewController {
             errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
+    
+    private func setupActivityIndicator() {
+        activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
 
     private func setupBindings() {
         userListView.tableView.delegate = self
@@ -59,22 +76,25 @@ class UserListViewController: UIViewController {
 
         viewModel.onUsersUpdated = { [weak self] in
             guard let self = self else { return }
-            
-            self.hideError()
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.hideError()
 
-            if self.viewModel.users.isEmpty {
-                // If data is fetched but the list is empty
-                self.showError(message: "No data available.")
-            } else {
-                // Data fetched successfully and is not empty, reload the data and ensure the error view is hidden
-                print("Users updated, reloading data")
-                self.userListView.tableView.reloadData()
+                if self.viewModel.users.isEmpty {
+                    self.showError(message: "No data available.")
+                } else {
+                    print("Users updated, reloading data")
+                    self.userListView.tableView.reloadData()
+                }
             }
         }
 
         viewModel.onNetworkError = { [weak self] message in
-            // Show error message when a network error occurs
-            self?.showError(message: message)
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.showError(message: message)
+            }
         }
     }
 
