@@ -136,5 +136,43 @@ final class UserListViewModelTests: XCTestCase {
         viewModel.toggleFollowStatus(for: 0)
         waitForExpectations(timeout: 1, handler: nil)
     }
+    
+    func testUpdateUsersWithFollowStatus() {
+        insertMockUserEntity(accountId: 1, isFollowed: true)
+        insertMockUserEntity(accountId: 2, isFollowed: false)
 
+        validateMockData()
+
+        viewModel.users = [
+            User(displayName: "Jon Skeet", accountId: 1, profileImage: nil, reputation: 100, isFollowed: true),
+            User(displayName: "Jon Doe", accountId: 2, profileImage: nil, reputation: 100, isFollowed: false)
+        ]
+
+        viewModel.updateUsersWithFollowStatus()
+
+        XCTAssertTrue(viewModel.users[0].isFollowed, "User with accountId 1 should be followed.")
+        XCTAssertFalse(viewModel.users[1].isFollowed, "User with accountId 2 should not be followed.")
+    }
+
+    private func validateMockData() {
+        let request: NSFetchRequest<UserEntity> = UserEntity.fetchRequest()
+        do {
+            let results = try mockContext.fetch(request)
+            XCTAssertEqual(results.count, 2, "Should have two user entities")
+            results.forEach { print("Mock Data - AccountId: \($0.accountId), IsFollowed: \($0.isFollowed)") }
+        } catch {
+            XCTFail("Failed to fetch mock data: \(error)")
+        }
+    }
+    
+    private func insertMockUserEntity(accountId: Int, isFollowed: Bool) {
+        let entity = UserEntity(context: mockContext)
+        entity.accountId = Int32(accountId)
+        entity.isFollowed = isFollowed
+        do {
+            try mockContext.save()
+        } catch {
+            XCTFail("Error saving context: \(error)")
+        }
+    }
 }

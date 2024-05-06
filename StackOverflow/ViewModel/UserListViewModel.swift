@@ -60,7 +60,7 @@ class UserListViewModel {
         }
     }
     
-    private func updateUsersWithFollowStatus() {
+    func updateUsersWithFollowStatus() {
         let request: NSFetchRequest<UserEntity> = UserEntity.fetchRequest()
         do {
             let results = try AppDelegate.context.fetch(request)
