@@ -18,7 +18,7 @@ class NetworkManager {
 
     func fetchData(from endpoint: Endpoint, completion: @escaping (Result<Data, Error>) -> Void) {
         guard let url = endpoint.url else {
-            completion(.failure(NSError(domain: "URLCreationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            completion(.failure(NetworkError.decodingError))
             return
         }
 
@@ -32,12 +32,13 @@ class NetworkManager {
 
                 guard let httpResponse = response as? HTTPURLResponse,
                       (200...299).contains(httpResponse.statusCode) else {
-                    completion(.failure(NSError(domain: "HTTPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid HTTP response"])))
+                    
+                    completion(.failure(NetworkError.HTTPError))
                     return
                 }
 
                 guard let data = data else {
-                    completion(.failure(NSError(domain: "DataError", code: -2, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    completion(.failure(NetworkError.noData))
                     return
                 }
 
